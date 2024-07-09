@@ -43,8 +43,10 @@ local script = G2L["2"];
 			toggle = not toggle
 			if toggle then
 				workspace.Camera.CameraType = Enum.CameraType.Scriptable
+				uis.MouseIconEnabled = true
 			else
 				workspace.Camera.CameraType = Enum.CameraType.Custom
+				uis.MouseIconEnabled = false
 			end
 		end
 		if key.KeyCode == Enum.KeyCode.Equals then
