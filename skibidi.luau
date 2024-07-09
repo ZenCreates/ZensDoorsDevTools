@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 3 | Scripts: 2 | Modules: 0
+-- Instances: 4 | Scripts: 2 | Modules: 0
 local G2L = {};
 
 -- StarterGui.Cursor
@@ -23,18 +23,39 @@ G2L["2"] = Instance.new("LocalScript", G2L["1"]);
 G2L["3"] = Instance.new("LocalScript", G2L["1"]);
 G2L["3"]["Name"] = [[FreecamScript]];
 
+-- StarterGui.Cursor.Freemouse
+G2L["4"] = Instance.new("TextButton", G2L["1"]);
+G2L["4"]["TextWrapped"] = true;
+G2L["4"]["BorderSizePixel"] = 0;
+G2L["4"]["Modal"] = true;
+G2L["4"]["TextTransparency"] = 1;
+G2L["4"]["TextSize"] = 14;
+G2L["4"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4"]["TextScaled"] = true;
+G2L["4"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["4"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["4"]["Size"] = UDim2.new(0.14472, 0, 0.06281, 0);
+G2L["4"]["BackgroundTransparency"] = 1;
+G2L["4"]["Name"] = [[Freemouse]];
+G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4"]["Visible"] = false;
+
 -- StarterGui.Cursor.LocalScript
 local function C_2()
 local script = G2L["2"];
 	local uis = game:GetService("UserInputService")
 	local toggleLighting = false
 	local toggle = false
+	local epic = false
 	
-	game.Lighting.Changed:Connect(function(prop)
-		if prop == "Ambient" then
-			if toggleLighting == true then
-				game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
-			end
+	game["Run Service"]:BindToRenderStep("Lighting", 1, function()
+		if toggleLighting == true then
+			game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+		end
+	end)
+	game["Run Service"]:BindToRenderStep("ThirdPerson", 99999, function()
+		if epic == true then
+			workspace.Camera.CameraType = Enum.CameraType.Custom
 		end
 	end)
 	
@@ -42,18 +63,22 @@ local script = G2L["2"];
 		if key.KeyCode == Enum.KeyCode.F then
 			toggle = not toggle
 			if toggle then
-				workspace.Camera.CameraType = Enum.CameraType.Scriptable
+				script.Parent.Freemouse.Visible = true
 				uis.MouseIconEnabled = true
 			else
-				workspace.Camera.CameraType = Enum.CameraType.Custom
+				script.Parent.Freemouse.Visible = false
 				uis.MouseIconEnabled = false
 			end
 		end
 		if key.KeyCode == Enum.KeyCode.Equals then
 			toggleLighting = not toggleLighting
+			game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
 			if not toggleLighting then
 				game.Lighting.Ambient = Color3.fromRGB(0, 0, 0)
 			end
+		end
+		if key.KeyCode == Enum.KeyCode.V then
+			epic = not epic
 		end
 	end)
 end;
