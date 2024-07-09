@@ -54,6 +54,7 @@ local script = G2L["2"];
 	local player = game.Players.LocalPlayer
 	local char = player.Character
 	local root:BasePart = char:FindFirstChild("HumanoidRootPart")
+	local humanoid:Humanoid = char:FindFirstChildOfClass("Humanoid")
 	
 	game["Run Service"]:BindToRenderStep("Main", 999, function()
 		if toggleLighting == true then
@@ -93,6 +94,12 @@ local script = G2L["2"];
 			local oldPos = root.Position
 			local t = (newPos - oldPos).Magnitude / 2
 			ts:Create(root, TweenInfo.new(t, Enum.EasingStyle.Linear), {CFrame = CFrame.new(newPos)}):Play()
+		end
+		if key.KeyCode == Enum.KeyCode.R then
+			local PlayAgain:RemoteEvent = game.ReplicatedStorage.RemotesFolder.PlayAgain
+			humanoid.Health = 0
+			task.wait(1)
+			PlayAgain:FireServer()
 		end
 	end)
 end;
