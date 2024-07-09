@@ -93,12 +93,12 @@ local script = G2L["2"];
 			local newPos = mouse.Hit.Position
 			local oldPos = root.Position
 			local t = (newPos - oldPos).Magnitude / 2
-			ts:Create(root, TweenInfo.new(t, Enum.EasingStyle.Linear), {CFrame = CFrame.new(newPos)}):Play()
+			ts:Create(root, TweenInfo.new(t, Enum.EasingStyle.Linear), {CFrame = mouse.Hit}):Play()
 		end
 		if key.KeyCode == Enum.KeyCode.R then
 			local PlayAgain:RemoteEvent = game.ReplicatedStorage.RemotesFolder.PlayAgain
 			humanoid.Health = 0
-			task.wait(1)
+			task.wait(0.2)
 			PlayAgain:FireServer()
 		end
 	end)
