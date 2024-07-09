@@ -34,7 +34,7 @@ G2L["4"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["4"]["TextScaled"] = true;
 G2L["4"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["4"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["4"]["Size"] = UDim2.new(0.14472, 0, 0.06281, 0);
+G2L["4"]["Size"] = UDim2.new(0.01881, 0, 0.03769, 0);
 G2L["4"]["BackgroundTransparency"] = 1;
 G2L["4"]["Name"] = [[Freemouse]];
 G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -47,10 +47,16 @@ local script = G2L["2"];
 	local toggleLighting = false
 	local toggle = false
 	local epic = false
+	local mouse = game.Players.LocalPlayer:GetMouse()
 	
-	game["Run Service"]:BindToRenderStep("Lighting", 1, function()
+	game["Run Service"]:BindToRenderStep("Main", 999, function()
 		if toggleLighting == true then
 			game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+		end
+		if script.Parent.Freemouse.Visible then
+			uis.MouseIconEnabled = true
+		else
+			uis.MouseIconEnabled = false
 		end
 	end)
 	
