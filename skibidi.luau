@@ -94,6 +94,7 @@ local script = G2L["2"];
 			local oldPos = root.Position
 			local t = (newPos - oldPos).Magnitude / 2
 			ts:Create(root, TweenInfo.new(t, Enum.EasingStyle.Linear), {CFrame = mouse.Hit}):Play()
+			print("MovingPlayer")
 		end
 		if key.KeyCode == Enum.KeyCode.R then
 			local PlayAgain:RemoteEvent = game.ReplicatedStorage.RemotesFolder.PlayAgain
