@@ -53,15 +53,12 @@ local script = G2L["2"];
 			game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
 		end
 	end)
-	game["Run Service"]:BindToRenderStep("ThirdPerson", 99999, function()
-		if epic == true then
-			workspace.Camera.CameraType = Enum.CameraType.Custom
-		end
-	end)
 	
 	uis.InputBegan:Connect(function(key)
+		print("Input Occured")
 		if key.KeyCode == Enum.KeyCode.F then
 			toggle = not toggle
+			print(toggle)
 			if toggle then
 				script.Parent.Freemouse.Visible = true
 				uis.MouseIconEnabled = true
@@ -70,15 +67,14 @@ local script = G2L["2"];
 				uis.MouseIconEnabled = false
 			end
 		end
-		if key.KeyCode == Enum.KeyCode.Equals then
+		if key.KeyCode == Enum.KeyCode.Equals then 
 			toggleLighting = not toggleLighting
-			game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
-			if not toggleLighting then
+			print(toggleLighting)
+			if toggleLighting then
+				game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+			else 
 				game.Lighting.Ambient = Color3.fromRGB(0, 0, 0)
 			end
-		end
-		if key.KeyCode == Enum.KeyCode.V then
-			epic = not epic
 		end
 	end)
 end;
