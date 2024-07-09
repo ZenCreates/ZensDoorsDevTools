@@ -55,10 +55,14 @@ local script = G2L["2"];
 	local char = player.Character
 	local root:BasePart = char:FindFirstChild("HumanoidRootPart")
 	local humanoid:Humanoid = char:FindFirstChildOfClass("Humanoid")
+	local remotes = game.ReplicatedStorage.RemotesFolder
+	local doorsModules = {
+		
+	}
 	
 	game["Run Service"]:BindToRenderStep("Main", 999, function()
 		if toggleLighting == true then
-			game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+			ts:Create(game.Lighting, TweenInfo.new(0), {Ambient = Color3.fromRGB(255, 255, 255)}):Play()
 		end
 		if script.Parent.Freemouse.Visible then
 			uis.MouseIconEnabled = true
@@ -68,7 +72,6 @@ local script = G2L["2"];
 	end)
 	
 	uis.InputEnded:Connect(function(key)
-		print("Input Occured")
 		if key.KeyCode == Enum.KeyCode.F then
 			toggle = not toggle
 			print(toggle)
@@ -92,8 +95,12 @@ local script = G2L["2"];
 		if key.KeyCode == Enum.KeyCode.T then
 			local newPos = mouse.Hit.Position
 			local oldPos = root.Position
-			local t = (newPos - oldPos).Magnitude / 2
+			local t = (newPos - oldPos).Magnitude * 3
+			root.Anchored = true
 			ts:Create(root, TweenInfo.new(t, Enum.EasingStyle.Linear), {CFrame = mouse.Hit}):Play()
+			task.delay(t, function()
+				root.Anchored = false
+			end)
 		end
 		if key.KeyCode == Enum.KeyCode.R then
 			local PlayAgain:RemoteEvent = game.ReplicatedStorage.RemotesFolder.PlayAgain
