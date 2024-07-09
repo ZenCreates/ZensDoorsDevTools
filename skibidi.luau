@@ -12,6 +12,8 @@ local G2L = {};
 
 -- StarterGui.Cursor
 G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["IgnoreGuiInset"] = true;
+G2L["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 G2L["1"]["Name"] = [[Cursor]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 
@@ -48,6 +50,10 @@ local script = G2L["2"];
 	local toggle = false
 	local epic = false
 	local mouse = game.Players.LocalPlayer:GetMouse()
+	local ts = game.TweenService
+	local player = game.Players.LocalPlayer
+	local char = player.Character
+	local root:BasePart = char:FindFirstChild("HumanoidRootPart")
 	
 	game["Run Service"]:BindToRenderStep("Main", 999, function()
 		if toggleLighting == true then
@@ -81,6 +87,12 @@ local script = G2L["2"];
 			else 
 				game.Lighting.Ambient = Color3.fromRGB(0, 0, 0)
 			end
+		end
+		if key.KeyCode == Enum.KeyCode.T then
+			local newPos = mouse.Hit.Position
+			local oldPos = root.Position
+			local t = (newPos - oldPos).Magnitude / 2
+			ts:Create(root, TweenInfo.new(t, Enum.EasingStyle.Linear), {CFrame = CFrame.new(newPos)}):Play()
 		end
 	end)
 end;
