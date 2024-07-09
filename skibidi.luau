@@ -93,6 +93,7 @@ local script = G2L["2"];
 			end
 		end
 		if key.KeyCode == Enum.KeyCode.T then
+			print("Trying TP")
 			local newPos = mouse.Hit.Position
 			local oldPos = root.Position
 			local t = (newPos - oldPos).Magnitude * 3
